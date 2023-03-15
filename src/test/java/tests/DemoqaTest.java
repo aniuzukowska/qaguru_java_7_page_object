@@ -1,7 +1,11 @@
 package tests;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPage;
+import pages.components.RegistrationResultsModal;
 
 public class DemoqaTest extends TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
+    private final RegistrationResultsModal registrationResultsModal = new RegistrationResultsModal();
     @Test
     void fillFormTest() {
         String
@@ -20,6 +24,7 @@ public class DemoqaTest extends TestBase {
                 userCity = "Karnal";
 
         registrationPage.openPage()
+                .removeBanner()
                 .setFirstName(userFirstName)
                 .setLastName(userLastName)
                 .setEmail(userEmail)
@@ -34,7 +39,7 @@ public class DemoqaTest extends TestBase {
                 .setCity(userCity)
                 .clickSubmit();
 
-        registrationPage.verifyResultsModalAppears()
+        registrationResultsModal.verifyModalAppears()
                 .verifyResult("Student Name", userFirstName + " " + userLastName)
                 .verifyResult("Student Email", userEmail)
                 .verifyResult("Gender", userGender)

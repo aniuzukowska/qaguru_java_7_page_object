@@ -3,104 +3,103 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
 import pages.components.Calendar;
-import pages.components.RegistrationResultsModal;
-import java.util.Objects;
+import com.codeborne.selenide.SelenideElement;
 
 
 public class RegistrationPage {
-    private Calendar calendar = new Calendar();
-    private RegistrationResultsModal registrationResultsModal = new RegistrationResultsModal();
+    private final Calendar calendar = new Calendar();
+    private final SelenideElement
+            firstNameInput = $("#firstName"),
+            lastNameInput = $("#lastName"),
+            emailInput = $("#userEmail"),
+            genderRadioButton = $("#genterWrapper"),
+            phoneInput = $("#userNumber"),
+            birthDateInput = $("#dateOfBirthInput"),
+            subjectInput = $("#subjectsInput"),
+            hobbyCheckBox = $("#hobbiesWrapper"),
+            uploadFileElement = $("#uploadPicture"),
+            addressInput = $("#currentAddress"),
+            stateField = $("#state"),
+            stateValue = $("#stateCity-wrapper"),
+            cityField = $("#city"),
+            cityValue = $("#stateCity-wrapper"),
+            submitButton = $("#submit");
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
+        return this;
+    }
+
+    public RegistrationPage removeBanner() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;
     }
 
     public RegistrationPage setFirstName(String value) {
-        $("#firstName").setValue(value);
+        firstNameInput.setValue(value);
         return this;
     }
 
     public RegistrationPage setLastName(String value) {
-        $("#lastName").setValue(value);
+        lastNameInput.setValue(value);
         return this;
     }
 
     public RegistrationPage setEmail(String value) {
-        $("#userEmail").setValue(value);
+        emailInput.setValue(value);
         return this;
     }
 
     public RegistrationPage setGender(String value) {
-        if (Objects.equals(value, "Male")) {
-            $(".custom-control-label[for='gender-radio-1']").click();
-        } else if (Objects.equals(value, "Female")) {
-            $(".custom-control-label[for='gender-radio-2']").click();
-        }
-        else if (Objects.equals(value, "Other")) {
-            $(".custom-control-label[for='gender-radio-3']").click();
-        }
+        genderRadioButton.$(byText(value)).click();
         return this;
     }
 
     public RegistrationPage setPhone(String value) {
-        $("#userNumber").setValue(value);
+        phoneInput.setValue(value);
         return this;
     }
 
     public RegistrationPage setBirthDate(String day, String month, String year) {
-        $("#dateOfBirthInput").click();
+        birthDateInput.click();
         calendar.setDate(day, month, year);
         return this;
     }
 
     public RegistrationPage setSubject(String value) {
-        $("#subjectsInput").setValue(value).pressEnter();
+        subjectInput.setValue(value).pressEnter();
         return this;
     }
 
     public RegistrationPage setHobby(String value) {
-        $("#hobbiesWrapper").$(byText(value)).click();
+        hobbyCheckBox.$(byText(value)).click();
         return this;
     }
 
     public RegistrationPage uploadFile(String value) {
-        $("#uploadPicture").uploadFromClasspath(value);
+        uploadFileElement.uploadFromClasspath(value);
         return this;
     }
 
     public RegistrationPage setAddress(String value) {
-        $("#currentAddress").setValue(value);
+        addressInput.setValue(value);
         return this;
     }
 
     public RegistrationPage setState(String value) {
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText(value)).click();
+        stateField.click();
+        stateValue.$(byText(value)).click();
         return this;
     }
 
     public RegistrationPage setCity(String value) {
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText(value)).click();
+        cityField.click();
+        cityValue.$(byText(value)).click();
         return this;
     }
 
     public void clickSubmit() {
-        $("#submit").click();
+        submitButton.click();
     }
-
-    public RegistrationPage verifyResultsModalAppears() {
-        registrationResultsModal.verifyModalAppears();
-        return this;
-    }
-
-    public RegistrationPage verifyResult(String key, String value) {
-        registrationResultsModal.verifyResult(key, value);
-        return this;
-    }
-
-
 }
