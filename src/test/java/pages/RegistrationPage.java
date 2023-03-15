@@ -88,7 +88,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage clickSubmit() {
+    public void clickSubmit() {
         $("#submit").click();
     }
 
