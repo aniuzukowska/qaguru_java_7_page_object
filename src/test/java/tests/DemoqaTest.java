@@ -21,7 +21,8 @@ public class DemoqaTest extends TestBase {
                 userHobby = "Music",
                 userAddress = "France, Paris",
                 userState = "Haryana",
-                userCity = "Karnal";
+                userCity = "Karnal",
+                userPicture = "picture.jpg";
 
         registrationPage.openPage()
                 .removeBanner()
@@ -33,7 +34,7 @@ public class DemoqaTest extends TestBase {
                 .setBirthDate(userBirthDay, userBirthMonth, userBirthYear)
                 .setSubject(userSubject)
                 .setHobby(userHobby)
-                .uploadFile("img/picture.jpg")
+                .uploadFile("img/"+userPicture)
                 .setAddress(userAddress)
                 .setState(userState)
                 .setCity(userCity)
@@ -48,7 +49,8 @@ public class DemoqaTest extends TestBase {
                 .verifyResult("Subjects", userSubject)
                 .verifyResult("Hobbies", userHobby)
                 .verifyResult("Address", userAddress)
-                .verifyResult("State and City", userState + " " + userCity);
+                .verifyResult("State and City", userState + " " + userCity)
+                .verifyResult("Picture", userPicture);
     }
 }
 
